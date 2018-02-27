@@ -291,6 +291,12 @@ def find_it(dec,tr_midp):
     return Transit_targets['pl_hostname'][a],Transit_targets['dec'][a],a
   
 def find_companions(dec,tr_midp):
+    '''
+    INPUT: 
+        dec : In degrees [scalar]. Eg. 43.21
+        tr_midp : List of hours and minutes, assumes March 25th. Example : [12,43]. This implies 2018,3,25,12,43 or 12.43pm on 25th March 2018
+    
+    '''
     list1_pairs = np.where(np.array(coincident1)==find_it(dec,tr_midp)[2])[0]   
     list2_pairs = coincident2[list1_pairs]
     

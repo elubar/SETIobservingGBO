@@ -269,6 +269,7 @@ for i in coincident1:
     color = cmap(norm(values[i]))
     #plt.plot(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime[i],Transit_sub['st_dist'][i], linestyle='none', color=color, marker='o')
     plt.errorbar(Transit_targets['Tr_midp_date'][i],Transit_targets['dec'][i],fmt='o',xerr=Transit_duration[i],color=color)
+    plt.text(Transit_targets['Tr_midp_date'][i],Transit_targets['dec'][i],Transit_targets['pl_hostname'][i])
     #plt.errorbar(Transit_targets['ra'][i],Transit_targets['dec'][i],fmt='o',color=color)
 
 

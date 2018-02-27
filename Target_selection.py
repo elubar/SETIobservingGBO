@@ -68,7 +68,7 @@ Transit_sub['st_dist'].fill_value = np.nan
 
 Trans_dur = Transit_sub.filled()['pl_trandur']
 Transit_duration = [datetime.timedelta(days = x/2) for x in Trans_dur]
-Transit_duration_float = Trans_dur/2
+Transit_duration_half = Trans_dur/2
 # Convert degrees to hours
 Transit_sub['ra']/=15.
 
@@ -199,10 +199,10 @@ cbar.set_label('Stellar Temperature (K)', rotation=270)
 '''
 #####################################################################
 
-
-egress = Transit_sub['tr_midp_jd'] + Transit_duration_float
+# Find and add ingress, egress
+egress = Transit_sub['tr_midp_jd'] + Transit_duration_half
 egress = np.array(Time(egress,format='jd',scale='utc').datetime -  datetime.timedelta(hours=4))
-ingress = Transit_sub['tr_midp_jd'] - Transit_duration_float
+ingress = Transit_sub['tr_midp_jd'] - Transit_duration_half
 ingress = np.array(Time(ingress,format='jd',scale='utc').datetime -  datetime.timedelta(hours=4))
 tr_midp_date = Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime - datetime.timedelta(hours=4)
 
@@ -210,10 +210,11 @@ Transit_sub.add_column(Column(ingress,name='Ingress'),index=0)
 Transit_sub.add_column(Column(egress,name='Egress'),index=0)
 Transit_sub.add_column(Column(tr_midp_date,name='Tr_midp_date'),index=0)
 
+# Filter for time period
 target_indices = np.where((ingress >  datetime.datetime(2018, 3, 25, 5)) & (egress <  datetime.datetime(2018, 3, 25, 17)))[0]
-
 Transit_targets = Transit_sub[target_indices]
-#Bower_2009 = Table.read(location+'\\bower_2009_apj316039t2_ascii.txt',format='ascii')
+
+# Time cushion between ingress and egress
 time_cushion = 0.75
 
 def radec_distance_exact(ra1,dec1,ra2,dec2):
@@ -286,8 +287,7 @@ def find_it(dec,tr_midp):
     dec_dist = np.abs(dec - Transit_targets['dec'])
     euclid_time_dist = np.abs(tr_midp_datetime - Transit_targets['Tr_midp_date'])
     a = np.where((dec_dist < threshold) & (euclid_time_dist < thresh_time))[0]
-
-    
+   
     return Transit_targets['pl_hostname'][a],Transit_targets['dec'][a],a
   
 def find_companions(dec,tr_midp):
@@ -319,4 +319,4 @@ def find_it_ra(ra,dec):
     
     return Transit_targets['pl_hostname'][a],Transit_targets['dec'][a],a
 '''
-
+#Bower_2009 = Table.read(location+'\\bower_2009_apj316039t2_ascii.txt',format='ascii')

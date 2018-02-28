@@ -229,7 +229,7 @@ coincident1 = []
 coincident2 = []
 
 for i in range(0,len(target_indices)):
-    for j in range(i+1,len(target_indices)):
+    for j in range(0,len(target_indices)):
         ang_dist = radec_distance_exact(Transit_targets['ra'][i]*15.,Transit_targets['dec'][i],Transit_targets['ra'][j]*15.,Transit_targets['dec'][j])
         if ((ang_dist>2) & (ang_dist<=4)) & (Transit_targets['Egress'][i] - Transit_targets['Ingress'][j] > datetime.timedelta(hours=time_cushion)) & (Transit_targets['Egress'][j] - Transit_targets['Ingress'][i] > datetime.timedelta(hours=time_cushion)):
             coincident1.append(i)

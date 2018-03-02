@@ -63,8 +63,9 @@ Transit_sub=Table.read(fpath)
 
 # Mask missing values
 Transit_sub['pl_trandur'].fill_value = 0
-Transit_sub['st_dist'].fill_value = np.nan
-
+Transit_sub['st_dist'].fill_value = -99
+Transit_sub['st_teff'].fill_value = 1e4
+Transit_sub = Transit_sub.filled()
 
 Trans_dur = Transit_sub.filled()['pl_trandur']
 Transit_duration = [datetime.timedelta(days = x/2) for x in Trans_dur]
@@ -78,7 +79,7 @@ i20 = Transit_sub['st_dist']<=20
 i50 = (Transit_sub['st_dist']>20) & (Transit_sub['st_dist']<=50)
 i100 = (Transit_sub['st_dist']>50) & (Transit_sub['st_dist']<=100)
 igreat = Transit_sub['st_dist']>100
-mask = Transit_sub['st_dist'].mask
+#mask = Transit_sub['st_dist'].mask
 
 
 
@@ -113,7 +114,7 @@ for j in range(0,len(result_100)):
 
 new_RA100 = Time((RA100-lst)/24. +start_time.jd,format='jd',scale='utc').datetime
 '''
-
+'''
 # Convert RA to time at Zenith
 start_time = Time(datetime.datetime(2018,3,23,0),format='datetime',scale='utc')  # Friday midnight 23rd March
 lst = start_time.sidereal_time('apparent','greenwich').value
@@ -124,7 +125,7 @@ new_x = Time((Transit_sub['ra']-lst)/24. + start_time.jd,format='jd',scale='utc'
 plt.title('Transiting Exoplanets')
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d  %H:00'))
 plt.gcf().autofmt_xdate()
-plt.plot(new_x[mask],Transit_sub['dec'][mask],'c.',alpha=0.4,label='d = nan')
+#plt.plot(new_x[mask],Transit_sub['dec'][mask],'c.',alpha=0.4,label='d = nan')
 
 #plt.plot(new_RA100,DEC100,'.y',alpha=0.4,label='Closest 100 d < 7 pc')
 plt.plot(new_x[igreat],Transit_sub['dec'][igreat],'m.',alpha=0.4,label='d > 100 pc')
@@ -136,6 +137,7 @@ plt.plot(new_x[i20],Transit_sub['dec'][i20],'b.',alpha=0.5,label='d <=20 pc')
 plt.legend(loc=8,ncol=2)
 
 plt.show()
+'''
 
 # Plot for transit center time
 '''
@@ -229,9 +231,9 @@ coincident1 = []
 coincident2 = []
 
 for i in range(0,len(target_indices)):
-    for j in range(0,len(target_indices)):
+    for j in range(i+1,len(target_indices)):
         ang_dist = radec_distance_exact(Transit_targets['ra'][i]*15.,Transit_targets['dec'][i],Transit_targets['ra'][j]*15.,Transit_targets['dec'][j])
-        if ((ang_dist>2) & (ang_dist<=4)) & (Transit_targets['Egress'][i] - Transit_targets['Ingress'][j] > datetime.timedelta(hours=time_cushion)) & (Transit_targets['Egress'][j] - Transit_targets['Ingress'][i] > datetime.timedelta(hours=time_cushion)):
+        if ((ang_dist>2) & (ang_dist<=6)) & (Transit_targets['Egress'][i] - Transit_targets['Ingress'][j] > datetime.timedelta(hours=time_cushion)) & (Transit_targets['Egress'][j] - Transit_targets['Ingress'][i] > datetime.timedelta(hours=time_cushion)) & (Transit_targets['st_teff'][i]<4000)& (Transit_targets['st_teff'][j]<10000):
             coincident1.append(i)
             coincident2.append(j)            
             #print(ang_dist,Transit_targets['Ingress'][i],Transit_targets['Egress'][i],Transit_targets['Ingress'][j],Transit_targets['Egress'][j])
@@ -244,7 +246,7 @@ Transit_duration = [datetime.timedelta(days = x/2) for x in Trans_dur]
                         
 ##############################################################################
 # USING PLT.PLOT()
-values = Transit_targets['st_dist']
+values = Transit_targets['st_teff']
 vmin = min(values)
 vmax = max(values)
 
@@ -265,7 +267,7 @@ plt.gcf().autofmt_xdate()
 
 
 
-for i in coincident1:
+for i in np.append(coincident1,coincident2):
     color = cmap(norm(values[i]))
     #plt.plot(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime[i],Transit_sub['st_dist'][i], linestyle='none', color=color, marker='o')
     plt.errorbar(Transit_targets['Tr_midp_date'][i],Transit_targets['dec'][i],fmt='o',xerr=Transit_duration[i],color=color)
@@ -279,7 +281,7 @@ plt.ylabel('Declination')
 plt.title('Transiting Exoplanets for GBT March 23-25')
 plt.show()
 cbar=plt.colorbar(sm)
-cbar.set_label('Stellar Distance (pc)', rotation=270)
+cbar.set_label('Stellar Temperature (K)', rotation=270)
 
 def find_it(dec,tr_midp):
     threshold = 0.1
@@ -302,10 +304,10 @@ def find_companions(dec,tr_midp):
     index = find_it(dec,tr_midp)[2]
     list1_pairs = np.where(np.array(coincident1)==index)[0]   
     list2_pairs = coincident2[list1_pairs]
- 
+    print(index,'\n')
     targets = Transit_targets['pl_hostname'][list2_pairs]
     
-    return Transit_targets['pl_hostname'][index],targets
+    return Transit_targets['pl_hostname'][index],targets,index
 
 
 '''    

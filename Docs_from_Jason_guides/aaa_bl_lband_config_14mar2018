@@ -1,0 +1,71 @@
+# L-band config script cleaned up 1/11/2018
+# This is the standard L-band config until futher notice.
+
+rcvr = GetValue("LO1","receiver")
+
+if rcvr != "Rcvr1_2":
+   print "Current Receiver is NOT L-band"
+   Break(("Current Receiver is " +rcvr+", NOT L-band, aka Rcvr1_2"), None)
+
+SetValues("VEGAS",{"state":"on"})
+ResetConfig()
+
+# Main configuration
+config_g="""
+receiver = 'Rcvr1_2'
+restfreq = 1500.,1500.,1500.,1500.,1500.,1500.,1500.,1500.
+notchfilter = "In"
+obstype = 'Spectroscopy'
+backend = 'VEGAS'
+pol = 'Linear'
+bandwidth = 1500
+tint  = 1
+swmode = 'tp'
+noisecal = 'lo'
+swtype = 'none'
+swper = 0.04
+swfreq = 0.0, 0.0
+nwin = 8
+deltafreq = 0,0,0,0,0,0,0,0
+vlow = 0
+vhigh = 0
+vframe = 'topo'
+vdef = 'Radio'
+nchan = 1024
+"""
+
+# Initial configure and balance
+Configure(config_g)
+Balance()
+
+SetValues("ScanCoordinator",{"subsystemSelect,VEGAS":0})
+SetValues("VEGAS",{"state":"off"})
+
+# Use DCR as switching signal master
+SetValues("SwitchingSignalSelector",{
+    "selCal": "Source_0",
+    "selSigRef": "Source_0",
+    "selAdvSigRef": "Source_0",
+    "selBlanking": "Source_0",
+    "state" : "prepare"
+})
+SetValues("ScanCoordinator", {
+    "subsystemSelect,DCR":"1",
+    "switching_signals_master": "DCR",
+    "state": "prepare"
+})
+
+#Turn off Cal
+rcvr = GetValue("LO1","receiver")
+if rcvr in ["Rcvr12_18","RcvrArray18_26","Rcvr26_40","Rcvr40_52","Rcvr68_92","RcvrArray75_116","Rcvr_MBA1_5"]:
+    print "I'm sorry Dave, I'm afraid I can't do that."
+    Break("Advanced control of receiver noise diodes is not supported for %s"%rcvr)
+
+else:
+    SetValues(rcvr, {
+        "xlExtToMCBCtrlSel":"ctlMcb",
+        "yrExtToMCBCtrlSel":"ctlMcb",
+        "xlCPUNoiseSwCtrl":"swOff",
+        "yrCPUNoiseSwCtrl":"swOff",
+        "state":"prepare"
+    })

@@ -6,7 +6,7 @@ import numpy as np
 from astropy.table import Table,join,Column
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-#from exoplanet_archive import download_NASA_exoplanet_archive_table as archive_table
+#from nasa_exoplanet_archive import download_NASA_exoplanet_archive_table as archive_table
 #from me_def import compactString
 from astropy.coordinates import EarthLocation
 from astropy.time import Time

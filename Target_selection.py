@@ -1,4 +1,4 @@
-import os
+import os,sys
 import datetime
 import numpy as np
 import glob
@@ -216,6 +216,8 @@ Transit_sub.add_column(Column(tr_midp_date,name='Tr_midp_date'),index=0)
 target_indices = np.where((ingress >  datetime.datetime(2018, 3, 25, 5)) & (egress <  datetime.datetime(2018, 3, 25, 17)))[0]
 Transit_targets = Transit_sub[target_indices]
 
+
+Transit_targets.write(os.path.join(location,'transiting_targets_gbt.csv'),delimiter=',',format='ascii')
 # Time cushion between ingress and egress
 time_cushion = 0.75
 
@@ -243,7 +245,7 @@ coincident2 = np.array(coincident2)
 
 Trans_dur = Transit_targets.filled()['pl_trandur']
 Transit_duration = [datetime.timedelta(days = x/2) for x in Trans_dur]        
-                        
+sys.exit()                       
 ##############################################################################
 # USING PLT.PLOT()
 values = Transit_targets['st_teff']

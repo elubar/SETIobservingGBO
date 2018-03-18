@@ -7,6 +7,8 @@ catfile = catfile_dir + catfile_name
 logfile = '/users/jhickish/obs_log/'+catfile_name+'.log' #future logfile
 newlinefile = '/users/jhickish/obs_log/newline_do_not_delete.absurd'
 
+a=1
+
 Catalog(catfile)
 Catalog(fluxcal)
 cat = Catalog('/users/hisaacso/catalogs/fluxcal2.cat')

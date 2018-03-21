@@ -64,6 +64,24 @@ for i in range(0,len(targets)):
     except ValueError:
         next
         
-t=Table([pair,name,ra,dec,ingress,midpoint,egress,np.zeros(len(pair))],names=('PAIR','NAME','RA','DEC','UTC_INGRESS','UTC_MIDPOINT','UTC_EGRESS','OBS'))
+ingress = np.array(["'"+i.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in ingress])
+egress = np.array(["'"+i.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in egress])
+
+midpoint = np.array(["'"+i.datetime.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in midpoint])
+
+#t=Table([pair,name,ra,dec,ingress,midpoint,egress,np.zeros(len(pair))],names=('NAME','RA','DEC','PAIR','UTC_INGRESS','UTC_MIDPOINT','UTC_EGRESS','OBS'))
+t=Table([name,ra,dec,pair,ingress,midpoint,egress,np.zeros(len(pair))],names=('','','','','','','',''))
 location = os.path.dirname(__file__)
 t.write(os.path.join(location,'D_Day',"GBT_20180325_lband_psu.cat"), format='ascii.fixed_width') 
+'''
+f = open(os.path.join(location,'D_Day',"GBT_20180325_lband_psu.cat"),'r+')
+#f.seek(0)
+f.write('coordmode=J2000 \nHEAD = NAME    RA    DEC    PAIR    UTC_INGRESS    UTC_MIDPOINT     UTC_EGRESS    OBS                                     ')
+f.close()
+'''
+#'2018/03/25 10:03:55 UTC' 
+
+'''
+coordmode=J2000 
+HEAD = NAME    RA    DEC    PAIR    UTC_INGRESS    UTC_MIDPOINT     UTC_EGRESS    OBS
+'''

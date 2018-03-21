@@ -29,11 +29,7 @@ obs_time = 60.0 * 5
 # on_only_sources are observed for one obs_time
 n_cycles = 1
 
-# Write message in log file and then move on to next line
-def write_log_line(filename, message):
-    with open(filename, 'a') as fh:
-        fh.write("%.3f: %s \n"%(time.time(), message))
-    
+on_only_srcs = []
 
 def on_only(on, on_time,ind,logfile):
     '''
@@ -57,7 +53,8 @@ def on_only(on, on_time,ind,logfile):
         if len(observed) <= ind:
             Slew(on)
             Track(on,endOffset=None,scanDuration=on_time)
-            write_log_line(logfile, "Tracking completed %s"%on)
+            with open(logfile, 'a') as fh:
+                fh.write("%.3f: %s \n"%(time.time(),"Tracking completed %s"%on))
             print('ind,len = ',ind,len(observed))
         else:
             print('Already observed. Skipping: ',str(on))

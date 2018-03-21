@@ -67,10 +67,10 @@ for i in range(0,len(targets)):
 ingress = np.array(["'"+i.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in ingress])
 egress = np.array(["'"+i.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in egress])
 
-midpoint = np.array(["'"+i.datetime.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in midpoint])
+midpoint1 = np.array(["'"+i.datetime.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in midpoint])
 
 #t=Table([pair,name,ra,dec,ingress,midpoint,egress,np.zeros(len(pair))],names=('NAME','RA','DEC','PAIR','UTC_INGRESS','UTC_MIDPOINT','UTC_EGRESS','OBS'))
-t=Table([name,ra,dec,pair,ingress,midpoint,egress,np.zeros(len(pair))],names=('','','','','','','',''))
+t=Table([name,ra,dec,pair,ingress,midpoint1,egress,np.zeros(len(pair))],names=('','','','','','','',''))
 location = os.path.dirname(__file__)
 t.write(os.path.join(location,'D_Day',"GBT_20180325_lband_psu.cat"), format='ascii.fixed_width') 
 '''

@@ -63,12 +63,6 @@ def on_only(on, on_time,ind,logfile):
     else:
         print('Not a real run')
         
-n_on_only_srcs = len(on_only_srcs)
-n_slews =  n_on_only_srcs
-slew_time = 30 * n_slews #approx (a.k.a. made-up)
-total_obs_time = obs_time * (n_on_only_srcs )
-print('Observing for %d minutes (%d seconds)'%(total_obs_time//60, total_obs_time))
-print('Observation will end at approximately', time.ctime(time.time() + total_obs_time + slew_time))
 
 # on_only sources are likely to be diagnostic, so observe these first
 for ind, source in enumerate(on_only_srcs):

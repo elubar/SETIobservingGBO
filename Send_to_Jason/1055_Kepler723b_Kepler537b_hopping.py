@@ -1,16 +1,20 @@
 
     
-from __future__ import print_function
+# Sample script to be reproduced to do target hopping ABABAB....
     
-# Sample script to be reproduced to observe transit midpoint of target.
+
+    
+from __future__ import print_function
     
 import time
     
 import subprocess
     
 import os
-
     
+import numpy as np
+    
+
     
 # Directory in which the target catalogue is there
     
@@ -40,34 +44,41 @@ Catalog(target_cat)
     
 obs_time = 60.0 * 5
     
+
     
-midpoint = '8-36' # Specify local time of midpoint transit
+targetname = ['Kepler723b', 'Kepler537b']
     
-targetname = 'kepler960b' 
+targetlist = np.tile(targetname,24)
     
+
     
 real_run = Now()
     
 if real_run: 
     
-    start = time.ctime(time.time())
+    for t in targetlist:
     
-    print("Beginning tracking of '%s' at %s." %(targetname,start))
+        start = time.ctime(time.time())
     
-    Track(t,endOffset=None,scanDuration=obs_time)
+        print("Beginning tracking of '%s' at %s." %(targetname,start))
     
-    end = time.ctime(time.time())
+        Track(t,endOffset=None,scanDuration=obs_time)
     
-    print ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
+        end = time.ctime(time.time())
+    
+        print ("'%s' observed. Tracking ended at %s" %(targetname,end))
     
     
-    with open(logfile, 'a') as fh:
     
-        fh.write("Tracking for target %s completed at %s" %(targetname,end))
+        with open(logfile, 'a') as fh:
+    
+            fh.write("Tracking for target %s completed at %s" %(targetname,end))
+    
 
     
 else:
     
     print('Not a real run')
     
+
     

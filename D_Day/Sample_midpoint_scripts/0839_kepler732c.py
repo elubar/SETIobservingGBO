@@ -41,9 +41,9 @@ Catalog(target_cat)
 obs_time = 60.0 * 5
     
     
-midpoint = '10-49' # Specify local time of midpoint transit
+midpoint = '0839' # Specify local time of midpoint transit
     
-targetname = 'kepler537b' 
+targetname = 'kepler732c' 
     
     
 real_run = Now()

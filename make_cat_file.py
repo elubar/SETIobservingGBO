@@ -88,13 +88,13 @@ t.add_row([new_target_name,*deg2sexagesimal(tabby_target),'M',"'2018/03/25 00:00
 
 location = os.path.dirname(__file__)
 t.write(os.path.join(location,'D_Day',"GBT_20180325_lband_psu.cat"), format='ascii.fixed_width') 
+
 '''
 f = open(os.path.join(location,'D_Day',"GBT_20180325_lband_psu.cat"),'r+')
 #f.seek(0)
 f.write('coordmode=J2000 \nHEAD = NAME    RA    DEC    PAIR    UTC_INGRESS    UTC_MIDPOINT     UTC_EGRESS    OBS                                     ')
 f.close()
 '''
-#'2018/03/25 10:03:55 UTC' 
 
 '''
 coordmode=J2000 

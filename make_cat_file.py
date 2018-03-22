@@ -75,7 +75,7 @@ egress = np.array(["'"+i.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in egress
 midpoint1 = np.array(["'"+i.datetime.strftime("%Y/%m/%d %H:%M:%S") + " UTC'" for i in midpoint])
 
 
-new_target_name = 'KIC 8462852'
+new_target_name = 'KIC8462852'
 tabby = Simbad.query_object(new_target_name)
 tabby_target = SkyCoord(ra=tabby['RA'][0], dec=tabby['DEC'][0],unit=(u.hourangle, u.deg))
 

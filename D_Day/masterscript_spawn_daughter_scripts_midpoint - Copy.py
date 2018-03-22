@@ -4,7 +4,7 @@ import astropy.units as u
 import datetime
 import os
 
-scriptdirectory = 'C:\Users\szk381\Documents\GitHub\SETIobservingGBO\D_Day\Sample_midpoint_scripts'
+scriptdirectory = os.path.join(os.path.dirname(__file__),"Sample_midpoint_scripts")
 
 targets = np.array([['kepler992b','kepler960b'],['kepler1039b','kepler1098b'],['kepler732c','kepler738b'],
 ['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b']]).flatten()

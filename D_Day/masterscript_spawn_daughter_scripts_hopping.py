@@ -4,7 +4,7 @@ import astropy.units as u
 import datetime
 import os
 
-scriptdirectory = 'C:\Users\szk381\Documents\GitHub\SETIobservingGBO\D_Day\Sample_hopping_scripts'
+scriptdirectory = os.path.join(os.path.dirname(__file__),"Sample_hopping_scripts")
 
 sequence = [['KIC8462852','Kepler738b'],['Kepler738b','Kepler992b'],['Kepler1039b','Kepler732c'],['Kepler732c','Kepler1164b'],['Kepler738b','Kepler1332b'],
 ['Kepler1053b','Kepler738b'],['Kepler1164b','Kepler723b'],['Kepler723b','Kepler537b'],['Kepler1332b','Kepler723b'],['Kepler446b','Kepler723b'],['Kepler446b','Kepler723b']]

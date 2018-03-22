@@ -46,19 +46,28 @@ midpoint = '12-16' # Specify local time of midpoint transit
 targetname = 'kepler446b' 
     
     
-start = time.ctime(time.time())
+real_run = Now()
     
-print("Beginning tracking of '%s' at %s." %(targetname,start))
+if real_run: 
     
-Track(targetname,endOffset=None,scanDuration=obs_time)
+    start = time.ctime(time.time())
     
-end = time.ctime(time.time())
+    print("Beginning tracking of '%s' at %s." %(targetname,start))
     
-print ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
+    Track(t,endOffset=None,scanDuration=obs_time)
+    
+    end = time.ctime(time.time())
+    
+    print ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
     
     
-with open(logfile, 'a') as fh:
+    with open(logfile, 'a') as fh:
     
-    fh.write("Tracking for target %s completed at %s" %(targetname,end))
+        fh.write("Tracking for target %s completed at %s" %(targetname,end))
+
+    
+else:
+    
+    print('Not a real run')
     
     

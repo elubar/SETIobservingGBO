@@ -64,14 +64,19 @@ for i in range(0,len(midp_string)):
     \nmidpoint = '{}' # Specify local time of midpoint transit
     \ntargetname = '{}' 
     
-    \nstart = time.ctime(time.time())
-    \nprint("Beginning tracking of '%s' at %s." %(targetname,start))
-    \nTrack(targetname,endOffset=None,scanDuration=obs_time)
-    \nend = time.ctime(time.time())
-    \nprint ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
+    \nreal_run = Now()
+    \nif real_run: 
+    \n    start = time.ctime(time.time())
+    \n    print("Beginning tracking of '%s' at %s." %(targetname,start))
+    \n    Track(t,endOffset=None,scanDuration=obs_time)
+    \n    end = time.ctime(time.time())
+    \n    print ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
     
-    \nwith open(logfile, 'a') as fh:
-    \n    fh.write("Tracking for target %s completed at %s" %(targetname,end))
+    \n    with open(logfile, 'a') as fh:
+    \n        fh.write("Tracking for target %s completed at %s" %(targetname,end))
+
+    \nelse:
+    \n    print('Not a real run')
     
     """.format(catdir,catname,logdir,midpoint,targetname)
     

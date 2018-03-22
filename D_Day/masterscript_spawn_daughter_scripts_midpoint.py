@@ -23,7 +23,7 @@ transit_times = ['2018-03-25 11:58:33.987',
  '2018-03-25 15:23:15.287']
 # in UTC
 
-midptime = [Time(datetime.datetime.strptime(i,"%Y-%m-%d %H:%M:%S.%f"),format='datetime',scale='utc') - 4*u.hour - 2*u.min for i in transit_times]
+midptime = [Time(datetime.datetime.strptime(i,"%Y-%m-%d %H:%M:%S.%f"),format='datetime',scale='utc') - 4*u.hour - 3*u.min for i in transit_times]
 midp_string = ["{:02}{:02}".format(i.datetime.time().hour,i.datetime.time().minute) for i in midptime]
 
 catdir = '/users/jwright/astro585'

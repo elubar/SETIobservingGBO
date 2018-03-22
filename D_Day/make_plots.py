@@ -6,13 +6,13 @@ import numpy as np
 from astropy.table import Table,join,Column
 import matplotlib.pyplot as plt
 import astropy.units as u
-from astroplan import EclipsingSystem, Observer, FixedTarget
 from astropy.coordinates import SkyCoord
 from astropy.time import Time
 import warnings
 import string
 import nasa_exoplanet_archive as archive
 from astroquery.simbad import Simbad
+import matplotlib
 obj = archive.NEA()
 
 targets = np.array([['kepler992b','kepler960b'],['kepler1039b','kepler1098b'],['kepler732c','kepler738b'],
@@ -44,10 +44,34 @@ ra = np.append(ra,tabby_target.ra.value)
 dec = np.append(dec,tabby_target.dec.value)
 st_dist = np.append(st_dist,390)
 
+##############################################################################
+# USING PLT.PLOT()
+values = st_dist
+vmin = min(values)
+vmax = max(values)
+
+# Define colour scheme
+cmap =matplotlib.cm.Spectral
+# Establish colour range based on variable
+norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
+
+# Need to establish a scalar mappable surface since plt.plot is not mappable
+sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+# Set Array 
+sm._A=[]
 
 cmap = matplotlib.cm.Spectral
-colour = st_dist
+
 
 for i in range(0,len(targets)):
-    plt.scatter(ra[i],dec[i],
-    plt.text(ra,dec,targets)
+    color = cmap(norm(values[i]))
+    plt.scatter(ra[i],dec[i],color = color)
+    plt.text(ra[i],dec[i],targets[i])
+    
+plt.xlabel('RA')
+plt.ylabel('Declination')
+#plt.xlim(min(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime),max(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime))
+plt.title('Transiting Exoplanets for GBT March 25')
+plt.show()
+cbar=plt.colorbar(sm)
+cbar.set_label('Stellar Distance (pc)', rotation=270)

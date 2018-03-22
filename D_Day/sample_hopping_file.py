@@ -25,17 +25,17 @@ Catalog(target_cat)
 obs_time = 60.0 * 5
 
 midpoint = '' # Specify local time of midpoint transit
-targetname = 'sample' 
+targetname = ['sample' ,'sample2']
 
+for t in targetname:
+    start = time.ctime(time.time())
+    print("Beginning tracking of '%s' at %s." %(targetname,start))
+    Track(targetname,endOffset=None,scanDuration=obs_time)
+    end = time.ctime(time.time())
+    print ("'%s' observed. Tracking ended at %s" %(targetname,end))
 
-start = time.ctime(time.time())
-print("Beginning tracking of '%s' at %s." %(targetname,start))
-Track(targetname,endOffset=None,scanDuration=obs_time)
-end = time.ctime(time.time())
-print ("'%s' observed. Midpoint was at %s. Tracking ended at %s" %(targetname,midpoint,end))
-
-with open(logfile, 'a') as fh:
-    fh.write("Tracking for target %s completed at %s" %(targetname,end))
+    with open(logfile, 'a') as fh:
+        fh.write("Tracking for target %s completed at %s" %(targetname,end))
 
 
 

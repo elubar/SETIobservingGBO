@@ -4,9 +4,9 @@ import os
 from __future__ import print_function
 
 catfile_name = "GBT_20180325_lband_psu.cat"
-catfile_dir = os.path.dirname(__file__)
+catfile_dir = '/users/jwright/astro585/'
 catfile = os.path.join(catfile_dir,catfile_name)
-logfile = '/users/jwright/obs_log/'+catfile_name+'.log' #future logfile
+logfile = '/users/jwright/astro585/'+catfile_name+'.log' #future logfile
 
 
 Catalog(catfile)
@@ -63,6 +63,12 @@ def on_only(on, on_time,ind,logfile):
     else:
         print('Not a real run')
         
+n_on_only_srcs = len(on_only_srcs)
+n_slews =  n_on_only_srcs
+slew_time = 30 * n_slews #approx (a.k.a. made-up)
+total_obs_time = obs_time * (n_on_only_srcs )
+print('Observing for %d minutes (%d seconds)'%(total_obs_time//60, total_obs_time))
+print('Observation will end at approximately', time.ctime(time.time() + total_obs_time + slew_time))
 
 # on_only sources are likely to be diagnostic, so observe these first
 for ind, source in enumerate(on_only_srcs):

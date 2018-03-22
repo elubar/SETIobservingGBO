@@ -1,12 +1,12 @@
 # Script to observe cal source. Need to specify fluxcal directory and catalogue name
-
+from __future__ import print_function
 import time
 import subprocess
 import os
-from __future__ import print_function
+
 
 # Directory in which the flux calibrator catalogue is there
-fluxcal_catdir = ''
+fluxcal_catdir = '/users/jwright/astro585'
 # Specify flux cal file name
 fluxcal_catname = ''
 fluxcal = os.path.join(fluxcal_catdir,fluxcal_catname)

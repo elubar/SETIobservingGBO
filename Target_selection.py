@@ -142,8 +142,7 @@ plt.show()
 # Plot for transit center time
 '''
 #USING SCATTER PLOT
-cmap = matplotlib.cm.Spectral
-colour = Transit_sub['st_teff']
+zxd f
 
 plt.figure()
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d  %H:00'))

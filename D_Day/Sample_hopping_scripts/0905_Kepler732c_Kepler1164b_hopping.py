@@ -4,6 +4,8 @@
     
 
     
+from __future__ import print_function
+    
 import time
     
 import subprocess
@@ -12,23 +14,20 @@ import os
     
 import numpy as np
     
-from __future__ import print_function
-    
 
     
 # Directory in which the target catalogue is there
     
-catdir = ''
+catdir = '/users/jwright/astro585'
     
 # Specify target catalogue file name
     
-catname = ''
+catname = 'GBT_20180325_lband_psu.cat'
     
-
     
 # Directory to log file
     
-logdir = ''
+logdir = '/users/jwright/astro585'
     
 # Log file name 
     
@@ -36,17 +35,12 @@ logfname = 'GBT_20180325_lband_psu.log'
     
 logfile = os.path.join(logdir,logfname)
     
-
     
 # Path to Target catalogue
     
 target_cat = os.path.join(catdir,catname)
     
-
-    
 Catalog(target_cat)
-    
-
     
 obs_time = 60.0 * 5
     
@@ -54,7 +48,7 @@ obs_time = 60.0 * 5
     
 targetname = ['Kepler732c', 'Kepler1164b']
     
-targetlist = np.tile(targetname,12)
+targetlist = np.tile(targetname,24)
     
 
     

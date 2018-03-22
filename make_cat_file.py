@@ -15,6 +15,10 @@ import nasa_exoplanet_archive as archive
 from astroquery.simbad import Simbad
 obj = archive.NEA()
 
+
+
+#/users/jwright/astro585/
+
 targets = np.array([['kepler992b','kepler960b'],['kepler1039b','kepler1098b'],['kepler732c','kepler738b'],
 ['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b']]).flatten()
 

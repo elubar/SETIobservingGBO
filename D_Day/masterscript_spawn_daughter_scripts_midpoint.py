@@ -26,12 +26,11 @@ transit_times = ['2018-03-25 11:58:33.987',
 midptime = [Time(datetime.datetime.strptime(i,"%Y-%m-%d %H:%M:%S.%f"),format='datetime',scale='utc') - 4*u.hour - 2*u.min for i in transit_times]
 midp_string = ["{}-{}".format(i.datetime.time().hour,i.datetime.time().minute) for i in midptime]
 
-catdir = ""
-catname = ""
-logdir = ""
+catdir = '/users/jwright/astro585'
+catname = 'GBT_20180325_lband_psu.cat'
+logdir = '/users/jwright/astro585'
 
-midpoint = ""
-targetname = ""
+
 
 for i in range(0,len(midp_string)):
     midpoint = midp_string[i]

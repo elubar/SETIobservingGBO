@@ -5,13 +5,12 @@ import subprocess
 import os
 from __future__ import print_function
 
-# Directory in which the target catalogue is there
-catdir = ''
-# Specify target catalogue file name
-catname = ''
-
-# Directory to log file
-logdir = ''
+# Directory in which the target catalogue is there    
+catdir = '/users/jwright/astro585'    
+# Specify target catalogue file name    
+catname = 'GBT_20180325_lband_psu.cat'     
+# Directory to log file 
+logdir = '/users/jwright/astro585'
 # Log file name 
 logfname = 'GBT_20180325_lband_psu.log'
 logfile = os.path.join(logdir,logfname)

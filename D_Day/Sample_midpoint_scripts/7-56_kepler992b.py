@@ -14,16 +14,16 @@ import os
     
 # Directory in which the target catalogue is there
     
-catdir = ''
+catdir = '/users/jwright/astro585'
     
 # Specify target catalogue file name
     
-catname = ''
+catname = 'GBT_20180325_lband_psu.cat'
     
     
 # Directory to log file
     
-logdir = ''
+logdir = '/users/jwright/astro585'
     
 # Log file name 
     

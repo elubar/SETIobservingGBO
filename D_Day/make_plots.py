@@ -16,7 +16,7 @@ import matplotlib
 obj = archive.NEA()
 
 targets = np.array([['kepler992b','kepler960b'],['kepler1039b','kepler1098b'],['kepler732c','kepler738b'],
-['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b']]).flatten()
+['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b'],['kepler1222b','kepler842b']]).flatten()
 
 coordinates = np.zeros((len(targets),2))
 

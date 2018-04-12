@@ -20,7 +20,7 @@ obj = archive.NEA()
 #/users/jwright/astro585/
 
 targets = np.array([['kepler992b','kepler960b'],['kepler1039b','kepler1098b'],['kepler732c','kepler738b'],
-['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b']]).flatten()
+['kepler1053b','kepler1164b'],['kepler1332b','kepler537b'],['kepler446b','kepler723b'],['kepler1222b','kepler842b']]).flatten()
 
 #t=Table(,names=('Pair','Name','RA','Dec','UTC_Ingress','UTC_midpoint','UTC_egress','Flux'))
 

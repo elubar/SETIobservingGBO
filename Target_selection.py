@@ -57,7 +57,8 @@ Transit_sub.write(os.path.join(location,'transiting_planets_gummi_sub.csv'),deli
 '''
 
 # IF FILE WITH REQD COLUMNS ALREADY EXISTS
-location = os.path.dirname(__file__)
+# location = os.path.dirname(__file__)
+location = r"C:\Users\skanodia\Documents\GitHub\SETIobservingGBO"
 fpath = os.path.join(location,'transiting_planets_gummi_sub.csv')
 Transit_sub=Table.read(fpath)
 
@@ -154,10 +155,11 @@ plt.xlabel('Transit midpoints')
 plt.ylabel('Distance (pc)')
 plt.xlim(min(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime),max(Time(Transit_sub['tr_midp_jd'],format='jd',scale='utc').datetime))
 plt.title('Transiting Exoplanets for GBT March 23-25')
-plt.show()
 
 cbar = plt.colorbar()
 cbar.set_label('Stellar Temperature (K)', rotation=270)
+plt.show()
+
 '''
 
 #####
@@ -216,7 +218,7 @@ target_indices = np.where((ingress >  datetime.datetime(2018, 3, 25, 5)) & (egre
 Transit_targets = Transit_sub[target_indices]
 
 
-Transit_targets.write(os.path.join(location,'transiting_targets_gbt.csv'),delimiter=',',format='ascii')
+# Transit_targets.write(os.path.join(location,'transiting_targets_gbt.csv'),delimiter=',',format='ascii')
 # Time cushion between ingress and egress
 time_cushion = 0.75
 
@@ -244,7 +246,7 @@ coincident2 = np.array(coincident2)
 
 Trans_dur = Transit_targets.filled()['pl_trandur']
 Transit_duration = [datetime.timedelta(days = x/2) for x in Trans_dur]        
-sys.exit()                       
+# sys.exit()                       
 ##############################################################################
 # USING PLT.PLOT()
 values = Transit_targets['st_teff']
